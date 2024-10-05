@@ -27,37 +27,55 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            // Llamamos a la función que se encarga de crear el diseño
             BoxTest()
         }
     }
 }
 
+// Usamos preview para que se vea el diseño en el diseñador de android studio
+// showBackground = true para que se vea el fondo
+// showSystemUi = true para que se vea la barra de estado
+// name = "First View" para que se vea el nombre de la vista
 @Preview(showBackground = true, showSystemUi = true, name = "First View")
 @Composable
+// Funcion que se encarga de crear el diseño
 private fun BoxTest() {
 
+    // Primero creamos el contenedor de todo el diseño (es un box)
+    // Modifier es un modificador que se le puede aplicar a un elemento para modificar su tamaño, posición, color, etc.
+    // Siempre hay que poner un modifier en los elementos, si no, no se verá nada 
+    // esto se debe a que los elementos no tienen un tamaño y posición por defecto asi que siempre hay que poner un modifier
+    // Existen muchos modificadores predefinidos en Compose
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
+            .fillMaxSize() // .fillMaxSize() para que el Box ocupe todo el tamaño del contenedor
+            .background(Color.White) // .background(Color.White) para que el Box tenga un color de fondo
     ) {
+        // 1º Box
+        // .size(400.dp) para que el Box tenga un tamaño de 400dp
+        // .background(Color.Black) para que el Box tenga un color de fondo
+        // .align(Alignment.TopCenter) para que el Box se alinee en el centro de la pantalla
         Box(
             modifier = Modifier
                 .size(400.dp)
                 .background(Color.Black)
                 .align(Alignment.TopCenter)
         ) {
+            // 2º Box
             Text(
                 text = "From Fir",
                 modifier = Modifier
                     .align(Alignment.Center)
+                    // .padding(16.dp) para que el texto tenga un padding de 16dp, padding es el espacio entre el texto y el borde del Box
+                    // ponemos padding para que el texto no quede pegado al borde del Box
                     .padding(16.dp),
                 fontSize = 35.sp,
                 color = Color.Gray,
                 fontFamily = FontFamily.Monospace
             )
         }
+        // Creamos un tercer Box que será el que contenga el texto
         Box(
             modifier = Modifier
                 .size(450.dp)
@@ -65,6 +83,12 @@ private fun BoxTest() {
                 .align(Alignment.BottomCenter)
 
         ) {
+            // El androidx.compose.foundation.layout.Column es simplemente un contenedor que permite alinear los elementos en vertical, en HTML es como usar <div>
+            // androidx.compose.foundation.layout es un paquete que contiene muchos modificadores útiles para diseñar la UI, por ejemplo, Column, Row, Box, etc. 
+            // usamos el paquete para que sea más fácil y cómodo el diseño
+            // Lo usamos porque Column me permite alinear los elementos en vertical y horizontal
+            // Se aplica un modificador en el Column para centrar el contenido horizontalmente;
+            // de lo contrario, el contenido se alinearía a la izquierda por defecto.
             androidx.compose.foundation.layout.Column(modifier = Modifier.align(Alignment.Center)) {
 
                 Text(
@@ -73,12 +97,12 @@ private fun BoxTest() {
                     color = Color.White,
                     fontSize = 55.sp,
                 )
+                // Spacer es un espacio entre los elementos, en este caso entre los textos
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(
                     text = "Víctor",
                     modifier = Modifier
-                        .padding(16.dp)
-                        .align(Alignment.CenterHorizontally),
+                        .padding(16.dp),
                     color = Color.White,
                     fontSize = 120.sp,
                     fontFamily = FontFamily.Cursive
@@ -88,3 +112,4 @@ private fun BoxTest() {
         }
     }
 }
+
