@@ -42,9 +42,24 @@ class MainActivity : ComponentActivity() {
 // Funcion que se encarga de crear el diseño
 private fun BoxTest() {
 
+    // Tamaño de los cuadrados de color
+    val squareSize = 450.dp
+    // Colores de los cuadrados
+    val firstBoxColor = Color.Black
+    val secondBoxColor = Color.Magenta
+    // Colores de los textos
+    val firstTextColor = Color.Gray
+    val secondTextColor = Color.White
+    // Tamaño del padding de los textos
+    val paddingSize = 16.dp
+    // Textos de los cuadrados
+    val firstBoxText = "From Fir"
+    val secondBoxTextMsg = "HappyBirthday"
+    val secondBoxTextName = "Víctor"
+
     // Primero creamos el contenedor de todo el diseño (es un box)
     // Modifier es un modificador que se le puede aplicar a un elemento para modificar su tamaño, posición, color, etc.
-    // Siempre hay que poner un modifier en los elementos, si no, no se verá nada 
+    // Siempre hay que poner un modifier en los elementos, si no, no se verá nada
     // esto se debe a que los elementos no tienen un tamaño y posición por defecto asi que siempre hay que poner un modifier
     // Existen muchos modificadores predefinidos en Compose
     Box(
@@ -58,52 +73,54 @@ private fun BoxTest() {
         // .align(Alignment.TopCenter) para que el Box se alinee en el centro de la pantalla
         Box(
             modifier = Modifier
-                .size(400.dp)
-                .background(Color.Black)
+                .size(squareSize)
+                .background(firstBoxColor)
                 .align(Alignment.TopCenter)
         ) {
-            // 2º Box
+            // 1º text
             Text(
-                text = "From Fir",
+                text = firstBoxText,
                 modifier = Modifier
                     .align(Alignment.Center)
                     // .padding(16.dp) para que el texto tenga un padding de 16dp, padding es el espacio entre el texto y el borde del Box
                     // ponemos padding para que el texto no quede pegado al borde del Box
-                    .padding(16.dp),
+                    .padding(paddingSize),
                 fontSize = 35.sp,
-                color = Color.Gray,
+                color = firstTextColor,
                 fontFamily = FontFamily.Monospace
             )
         }
-        // Creamos un tercer Box que será el que contenga el texto
+        // 2º Box que será el que contenga el texto HappyBirthday Víctor
         Box(
             modifier = Modifier
-                .size(450.dp)
-                .background(Color.Magenta)
+                .size(squareSize)
+                .background(secondBoxColor)
                 .align(Alignment.BottomCenter)
 
         ) {
             // El androidx.compose.foundation.layout.Column es simplemente un contenedor que permite alinear los elementos en vertical, en HTML es como usar <div>
-            // androidx.compose.foundation.layout es un paquete que contiene muchos modificadores útiles para diseñar la UI, por ejemplo, Column, Row, Box, etc. 
+            // androidx.compose.foundation.layout es un paquete que contiene muchos modificadores útiles para diseñar la UI, por ejemplo, Column, Row, Box, etc.
             // usamos el paquete para que sea más fácil y cómodo el diseño
             // Lo usamos porque Column me permite alinear los elementos en vertical y horizontal
             // Se aplica un modificador en el Column para centrar el contenido horizontalmente;
             // de lo contrario, el contenido se alinearía a la izquierda por defecto.
             androidx.compose.foundation.layout.Column(modifier = Modifier.align(Alignment.Center)) {
 
+                // 2º text
                 Text(
-                    text = "HappyBirthday",
-                    modifier = Modifier.padding(16.dp),
-                    color = Color.White,
+                    text = secondBoxTextMsg,
+                    modifier = Modifier.padding(paddingSize),
+                    color = secondTextColor,
                     fontSize = 55.sp,
                 )
                 // Spacer es un espacio entre los elementos, en este caso entre los textos
                 Spacer(modifier = Modifier.size(8.dp))
+                // 2º text
                 Text(
-                    text = "Víctor",
+                    text = secondBoxTextName,
                     modifier = Modifier
-                        .padding(16.dp),
-                    color = Color.White,
+                        .padding(paddingSize),
+                    color = secondTextColor,
                     fontSize = 120.sp,
                     fontFamily = FontFamily.Cursive
                 )
