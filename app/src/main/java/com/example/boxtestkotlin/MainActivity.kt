@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -16,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.painterResource
 
 
 class MainActivity : ComponentActivity() {
@@ -77,56 +80,90 @@ private fun BoxTest() {
                 .background(firstBoxColor)
                 .align(Alignment.TopCenter)
         ) {
-            // 1º text
-            Text(
-                text = firstBoxText,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    // .padding(16.dp) para que el texto tenga un padding de 16dp, padding es el espacio entre el texto y el borde del Box
-                    // ponemos padding para que el texto no quede pegado al borde del Box
-                    .padding(paddingSize),
-                fontSize = 35.sp,
-                color = firstTextColor,
-                fontFamily = FontFamily.Monospace
-            )
-        }
-        // 2º Box que será el que contenga el texto HappyBirthday Víctor
-        Box(
-            modifier = Modifier
-                .size(squareSize)
-                .background(secondBoxColor)
-                .align(Alignment.BottomCenter)
-
-        ) {
-            // El androidx.compose.foundation.layout.Column es simplemente un contenedor que permite alinear los elementos en vertical, en HTML es como usar <div>
-            // androidx.compose.foundation.layout es un paquete que contiene muchos modificadores útiles para diseñar la UI, por ejemplo, Column, Row, Box, etc.
-            // usamos el paquete para que sea más fácil y cómodo el diseño
-            // Lo usamos porque Column me permite alinear los elementos en vertical y horizontal
-            // Se aplica un modificador en el Column para centrar el contenido horizontalmente;
-            // de lo contrario, el contenido se alinearía a la izquierda por defecto.
-            androidx.compose.foundation.layout.Column(modifier = Modifier.align(Alignment.Center)) {
-
-                // 2º text
-                Text(
-                    text = secondBoxTextMsg,
-                    modifier = Modifier.padding(paddingSize),
-                    color = secondTextColor,
-                    fontSize = 55.sp,
+            // Para poner una imagen en el Box se usa Image porque es un elemento que permite poner una imagen en el diseño
+            // Guardamos la imagen en el archivo de recursos que sera la carpeta res/drawable/
+            Image (
+                // painter es el recurso de la imagen que se va a usar
+                // painterResource es una función que se encarga de obtener el recurso de la imagen
+                // id es el identificador de la imagen en el archivo de recursos
+                // R es el paquete de recursos de la aplicación
+                painter = painterResource(id = R.drawable.hi),
+                // contentDescription es una descripción de la imagen para el lector de pantalla
+                contentDescription = "From Fir",
+                // contentScale es el modo de escalado de la imagen
+                // ContentScale.Crop para que la imagen se corte para que quepa en el Box
+                contentScale = ContentScale.Crop,
+                // Modifier.fillMaxSize() para que la imagen ocupe todo el tamaño del Box
+                modifier = Modifier.fillMaxSize()
                 )
-                // Spacer es un espacio entre los elementos, en este caso entre los textos
-                Spacer(modifier = Modifier.size(8.dp))
-                // 2º text
-                Text(
-                    text = secondBoxTextName,
+                Box(
                     modifier = Modifier
-                        .padding(paddingSize),
-                    color = secondTextColor,
-                    fontSize = 120.sp,
-                    fontFamily = FontFamily.Cursive
+                        .fillMaxSize()
+                        .background(firstBoxColor.copy(alpha = 0.5f))
                 )
 
+                // 1º text
+                Text(
+                    text = firstBoxText,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        // .padding(16.dp) para que el texto tenga un padding de 16dp, padding es el espacio entre el texto y el borde del Box
+                        // ponemos padding para que el texto no quede pegado al borde del Box
+                        .padding(paddingSize),
+                    fontSize = 35.sp,
+                    color = firstTextColor,
+                    fontFamily = FontFamily.Monospace
+                )
+            }
+            // 2º Box que será el que contenga el texto HappyBirthday Víctor
+            Box(
+                modifier = Modifier
+                    .size(squareSize)
+                    .background(secondBoxColor)
+                    .align(Alignment.BottomCenter)
+
+            ) {
+                Image (
+                    painter = painterResource(id = R.drawable.hi),
+                    contentDescription = "victor",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(secondBoxColor.copy(alpha = 0.5f))
+                    )
+
+                    // El androidx.compose.foundation.layout.Column es simplemente un contenedor que permite alinear los elementos en vertical, en HTML es como usar <div>
+                    // androidx.compose.foundation.layout es un paquete que contiene muchos modificadores útiles para diseñar la UI, por ejemplo, Column, Row, Box, etc.
+                    // usamos el paquete para que sea más fácil y cómodo el diseño
+                    // Lo usamos porque Column me permite alinear los elementos en vertical y horizontal
+                    // Se aplica un modificador en el Column para centrar el contenido horizontalmente;
+                    // de lo contrario, el contenido se alinearía a la izquierda por defecto.
+                    androidx.compose.foundation.layout.Column(modifier = Modifier.align(Alignment.Center)) {
+
+                        // 2º text
+                        Text(
+                            text = secondBoxTextMsg,
+                            modifier = Modifier.padding(paddingSize),
+                            color = secondTextColor,
+                            fontSize = 55.sp,
+                        )
+                        // Spacer es un espacio entre los elementos, en este caso entre los textos
+                        Spacer(modifier = Modifier.size(8.dp))
+                        // 2º text
+                        Text(
+                            text = secondBoxTextName,
+                            modifier = Modifier
+                                .padding(paddingSize),
+                            color = secondTextColor,
+                            fontSize = 120.sp,
+                            fontFamily = FontFamily.Cursive
+                        )
+
+                    }
+                }
             }
         }
-    }
-}
 
